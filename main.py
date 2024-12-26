@@ -9,7 +9,10 @@ from PySide6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout,
                             QProgressBar, QFileDialog, QMessageBox, QComboBox,
                             QTextEdit, QSplitter, QFormLayout, QGroupBox)
 from PySide6.QtCore import Qt, QThread, Signal, QSettings
+from PySide6.QtGui import QIcon
 from translations import en_US, zh_CN
+
+VERSION = "v1.1"  # Current version
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -19,6 +22,21 @@ class MainWindow(QMainWindow):
         self.initTranslations()
         self.initUI()
         self.loadSettings()
+        
+        # Set window icon and title with version
+        icon_path = self.get_resource_path('resources/app.ico')
+        if os.path.exists(icon_path):
+            self.setWindowIcon(QIcon(icon_path))
+        self.setWindowTitle(f"{self.tr('window_title')} - {VERSION}")
+        
+    def get_resource_path(self, relative_path):
+        """Get absolute path to resource, works for dev and for PyInstaller"""
+        try:
+            # PyInstaller creates a temp folder and stores path in _MEIPASS
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath(".")
+        return os.path.join(base_path, relative_path)
         
     def initTranslations(self):
         """Initialize translations and load the last used language"""
@@ -41,7 +59,7 @@ class MainWindow(QMainWindow):
             
     def retranslateUI(self):
         """Update all UI text elements with the current language"""
-        self.setWindowTitle(self.tr('window_title'))
+        self.setWindowTitle(f"{self.tr('window_title')} - {VERSION}")
         self.url_label.setText(self.tr('svn_url'))
         self.username_label.setText(self.tr('username'))
         self.password_label.setText(self.tr('password'))
