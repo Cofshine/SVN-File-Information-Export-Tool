@@ -39,7 +39,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='SVN文件信息导出工具',
+    name='SVN Exporter',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
