@@ -53,3 +53,6 @@ pyinstaller build.spec
 3. File format filter supports wildcard (*) matching
 4. All input fields (except password) automatically save last used values
 5. SVN URL supports history, saving the 10 most recently used addresses
+
+## Usage Example
+![](images/usage_en.png)
